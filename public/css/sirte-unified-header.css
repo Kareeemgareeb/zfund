@@ -1,0 +1,54 @@
+/* Phase 52 — one institutional two-level header across public and account pages. */
+.szuh,.szuh *{box-sizing:border-box}
+.szuh{position:sticky;top:0;z-index:999;background:#fff;direction:rtl;font-family:Cairo,Tahoma,Arial,sans-serif;color:#163e62;box-shadow:0 4px 22px rgba(15,52,86,.10);isolation:isolate}
+.szuh-wrap{width:min(1240px,calc(100% - 36px));margin-inline:auto}
+.szuh-top{background:#fff;border-top:4px solid #12558d}
+.szuh-top-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:88px;padding:10px 0}
+.szuh-identity{display:flex;align-items:center;gap:14px;min-width:0;text-decoration:none!important;color:#163e62!important}
+.szuh-logo-frame{display:flex;align-items:center;justify-content:center;width:66px;height:66px;flex-shrink:0;border-radius:15px;background:#11518c;padding:5px;box-shadow:0 4px 13px #13436d20}
+.szuh-logo-frame img{display:block;width:100%;height:100%;object-fit:contain}
+.szuh-identity-copy{display:flex;flex-direction:column;gap:2px;line-height:1.45}
+.szuh-identity-copy strong{font-size:19px;font-weight:900;color:#153d62}
+.szuh-identity-copy small{font-size:12px;color:#6a8194;font-weight:700}
+.szuh-tools{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.szuh-tools form{margin:0}.szuh-tools a,.szuh-tools button{font:700 12px Cairo,Tahoma,sans-serif;text-decoration:none!important;border-radius:10px;padding:9px 13px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;min-height:39px;transition:background .2s,color .2s,transform .2s}
+.szuh-username{font-size:12px;font-weight:800;color:#496b85;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.szuh-account{border:1px solid #d4e1ed;color:#164b78!important;background:#f5f9fd}.szuh-account:hover{background:#eaf3fb}
+.szuh-register{background:#14558e;color:#fff!important;border:1px solid #14558e}.szuh-register:hover{background:#0c3e6c}
+.szuh-logout{border:1px solid #d4e1ed;color:#174c77;background:#fff}.szuh-logout:hover{background:#f1f6fb}
+.szuh-nav-row{background:#f5f9fc;border-top:1px solid #e2ebf2;border-bottom:1px solid #dbe6ef}
+.szuh-nav-inner{min-height:51px;display:flex;align-items:center}
+.szuh-nav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding:6px 0}
+.szuh-nav a{font:800 12px Cairo,Tahoma,sans-serif;color:#295574!important;text-decoration:none!important;border-radius:9px;padding:9px 12px;white-space:nowrap;transition:background .2s,color .2s}
+.szuh-nav a:hover{background:#e4eff8;color:#104979!important}
+.szuh-nav a[aria-current=page]{background:#15558c;color:#fff!important}
+.szuh-menu-toggle{display:none;border:1px solid #cddfec;background:#fff;color:#174e7c;border-radius:10px;padding:10px 14px;font:800 13px Cairo,Tahoma,sans-serif;cursor:pointer}
+.szuh a:focus-visible,.szuh button:focus-visible{outline:3px solid #d8a83b;outline-offset:2px}
+@media(max-width:840px){.szuh-top-inner{min-height:76px}.szuh-logo-frame{width:56px;height:56px}.szuh-identity-copy strong{font-size:16px}.szuh-tools{gap:6px}.szuh-username{display:none}.szuh-menu-toggle{display:block;margin:8px 0}.szuh-nav-inner{display:block}.szuh-nav{display:none;flex-direction:column;align-items:stretch;gap:3px;padding:4px 0 14px}.szuh-nav.szuh-open{display:flex}.szuh-nav a{padding:11px 14px}}
+@media(max-width:540px){.szuh-wrap{width:min(100% - 24px,1240px)}.szuh-top-inner{gap:8px;flex-wrap:wrap}.szuh-identity-copy strong{font-size:14px}.szuh-identity-copy small{font-size:10px}.szuh-tools{width:100%;justify-content:flex-start}.szuh-tools a,.szuh-tools button{min-height:33px;padding:6px 10px;font-size:11px}.szuh-logo-frame{width:50px;height:50px}}
+@media(prefers-reduced-motion:reduce){.szuh *{transition:none!important}}
+
+/* Protect the shared header from legacy global page styles. */
+.szuh .szuh-nav{float:none;width:auto;position:static;background:transparent;box-shadow:none}.szuh .szuh-top-inner a{line-height:1.5}
+
+
+/* In-App Notifications Dropdown & Bell */
+.szuh-notif-wrapper{position:relative;display:inline-flex;align-items:center}
+.szuh-notif-btn{position:relative;background:#f5f9fd;border:1px solid #d4e1ed;color:#164b78;border-radius:10px;width:39px;height:39px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s;padding:0}
+.szuh-notif-btn:hover{background:#eaf3fb;color:#0f3f69}
+.szuh-notif-badge{position:absolute;top:-4px;right:-4px;background:#e02424;color:#fff;font-size:10px;font-weight:900;min-width:18px;height:18px;line-height:16px;padding:0 4px;border-radius:9999px;text-align:center;border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,0.15)}
+.szuh-notif-dropdown{display:none;position:absolute;top:calc(100% + 8px);left:0;width:320px;background:#fff;border:1px solid #dbe6ef;border-radius:14px;box-shadow:0 12px 35px rgba(15,52,86,0.18);z-index:1000;overflow:hidden;text-align:right}
+.szuh-notif-dropdown.szuh-show{display:block}
+.szuh-notif-header{padding:12px 14px;background:#f8fafc;border-bottom:1px solid #eef2f6;display:flex;align-items:center;justify-content:space-between;font-size:13px;color:#163e62}
+.szuh-notif-pill{background:#e02424;color:#fff;font-size:11px;font-weight:800;padding:2px 7px;border-radius:9999px}
+.szuh-notif-body{max-height:320px;overflow-y:auto}
+.szuh-notif-item{display:block;padding:11px 14px;text-decoration:none!important;border-bottom:1px solid #f1f5f9;transition:background .15s}
+.szuh-notif-item:hover{background:#f8fafc}
+.szuh-notif-item.is-unread{background:#f0f7ff;border-right:3px solid #10518f}
+.szuh-notif-item-title{font-size:12px;font-weight:800;color:#153d62;margin-bottom:3px}
+.szuh-notif-item-snippet{font-size:11px;color:#526f84;line-height:1.4;margin-bottom:4px}
+.szuh-notif-item-time{font-size:10px;color:#94a3b8;font-weight:600}
+.szuh-notif-empty{padding:24px 14px;text-align:center;color:#8298a8;font-size:12px}
+.szuh-notif-footer{padding:10px;text-align:center;background:#f8fafc;border-top:1px solid #eef2f6}
+.szuh-notif-footer a{font-size:12px;font-weight:800;color:#10518f!important;display:block;text-decoration:none!important}
+@media(max-width:540px){.szuh-notif-dropdown{width:280px;left:-60px}}

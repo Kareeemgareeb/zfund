@@ -1,0 +1,1 @@
+<img {{ $attributes->merge(['alt' => 'شعار صندوق الزكاة – فرع سرت']) }} src="{{ asset('images/sirte-zakat-logo.png') }}" />

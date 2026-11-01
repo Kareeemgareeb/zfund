@@ -1,0 +1,20 @@
+<style id="sz-global-money-fix">.sz-currency-value{display:inline-flex!important;direction:ltr!important;unicode-bidi:isolate;align-items:baseline;gap:5px;white-space:nowrap;font-family:Arial,Tahoma,sans-serif;font-variant-numeric:tabular-nums}.sz-currency-value .sz-currency-symbol{font-family:Cairo,Tahoma,sans-serif;font-size:.78em;font-weight:700;direction:rtl}.sz-currency-value .sz-currency-number{direction:ltr;unicode-bidi:isolate;font-weight:inherit}</style>
+<x-app-layout>
+<x-slot name="header"><h2 class="font-semibold text-xl text-gray-800">ربط التبرعات بطلبات الإعانة</h2></x-slot>
+<div dir="rtl" class="max-w-6xl mx-auto p-6 space-y-5">
+<div class="bg-white shadow rounded-xl p-6">
+<h1 class="text-xl font-bold mb-3">تخصيص تبرع ناجح لطلب إعانة معتمد</h1>
+<p class="text-gray-600 mb-4">تظهر هنا التبرعات الناجحة غير المرتبطة بمشروع أو طلب آخر. لا يُنشئ هذا النموذج تبرعًا جديدًا ولا يثبت دفعًا لم يحدث.</p>
+@if(session('status'))<p class="p-3 bg-green-100 text-green-900 mb-4">{{ session('status') }}</p>@endif
+@if($errors->any())<p class="p-3 bg-red-100 text-red-900 mb-4">{{ $errors->first() }}</p>@endif
+<form method="POST" action="{{ route('admin.assistance-donations.allocate') }}" class="grid md:grid-cols-2 gap-4">@csrf
+<div><label class="block font-bold mb-2">التبرع المتاح</label><select required name="transaction_id" class="w-full rounded-lg border-gray-300"><option value="">اختر التبرع</option>@foreach($available as $t)<option value="{{ $t->id }}">{{ $t->transaction_ref }} — <span class="sz-currency-value"><span class="sz-currency-symbol">د.ل</span><span class="sz-currency-number">{{ number_format($t->amount, 2) }}</span></span></option>@endforeach</select></div>
+<div><label class="block font-bold mb-2">طلب الإعانة المعتمد</label><select required name="assistance_request_id" class="w-full rounded-lg border-gray-300"><option value="">اختر الطلب</option>@foreach($requests as $r)<option value="{{ $r->id }}">{{ $r->request_code }} — المطلوب <span class="sz-currency-value"><span class="sz-currency-symbol">د.ل</span><span class="sz-currency-number">{{ number_format($r->approved_amount ?? $r->requested_amount, 2) }}</span></span></option>@endforeach</select></div>
+<div class="md:col-span-2"><button type="submit" style="background:#10518f!important;color:white!important;border-radius:9px;padding:11px 24px;font-weight:700" onclick="return confirm('تأكيد تخصيص هذا التبرع لطلب الإعانة؟')">ربط التبرع بالطلب</button></div>
+</form>
+@if($available->isEmpty())<p class="mt-4 text-amber-800">لا توجد تبرعات ناجحة غير مخصصة حاليًا. يلزم تسجيل تبرع حقيقي ناجح أولًا من نظام التبرعات.</p>@endif
+</div>
+<div class="bg-white shadow rounded-xl p-6 overflow-x-auto"><h2 class="font-bold text-lg mb-4">الطلبات المعتمدة والتمويل</h2><table class="w-full text-right"><thead><tr class="border-b"><th class="p-2">رقم الطلب</th><th class="p-2">المطلوب</th><th class="p-2">المجمع</th><th class="p-2">المتبقي</th></tr></thead><tbody>@forelse($requests as $r)<tr class="border-b"><td class="p-2">{{ $r->request_code }}</td><td class="p-2">{{ number_format($r->approved_amount ?? $r->requested_amount, 2) }}</td><td class="p-2">{{ number_format($r->collected_amount ?? 0, 2) }}</td><td class="p-2">{{ number_format(max(0, ($r->approved_amount ?? $r->requested_amount) - ($r->collected_amount ?? 0)), 2) }}</td></tr>@empty<tr><td colspan="4" class="p-4">لا توجد طلبات معتمدة.</td></tr>@endforelse</tbody></table></div>
+<div class="bg-white shadow rounded-xl p-6 overflow-x-auto"><h2 class="font-bold text-lg mb-4">آخر عمليات الربط</h2><table class="w-full text-right"><thead><tr class="border-b"><th class="p-2">مرجع التبرع</th><th class="p-2">رقم طلب الإعانة</th><th class="p-2">المبلغ</th></tr></thead><tbody>@forelse($recent as $t)<tr class="border-b"><td class="p-2">{{ $t->transaction_ref }}</td><td class="p-2">{{ $t->assistanceRequest?->request_code }}</td><td class="p-2">{{ number_format($t->amount, 2) }}</td></tr>@empty<tr><td colspan="3" class="p-4">لم تُخصص تبرعات بعد.</td></tr>@endforelse</tbody></table></div>
+</div>
+</x-app-layout>
