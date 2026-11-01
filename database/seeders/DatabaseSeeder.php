@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         ] as [$name, $display]) {
             Role::updateOrCreate(['name' => $name], ['display_name' => $display]);
         }
+
+        $this->call(AdminUserSeeder::class);
     }
 }

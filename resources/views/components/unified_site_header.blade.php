@@ -1,5 +1,5 @@
 {{-- Unified institutional two-level header; links respect actual Laravel roles and routes. --}}
-<link rel="stylesheet" href="{{ asset('css/sirte-unified-header.css') }}">
+<link rel="stylesheet" href="{{ asset('css/sirte-unified-header.css') }}?v={{ file_exists(public_path('css/sirte-unified-header.css')) ? filemtime(public_path('css/sirte-unified-header.css')) : time() }}">
 <header class="szuh" role="banner" dir="rtl">
  <div class="szuh-top"><div class="szuh-wrap szuh-top-inner">
   <a class="szuh-identity" href="{{ url('/') }}" aria-label="الصفحة الرئيسية لصندوق الزكاة فرع سرت">
